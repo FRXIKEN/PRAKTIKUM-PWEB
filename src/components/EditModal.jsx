@@ -41,7 +41,9 @@ export default function EditModal({ item, onClose, onSave }) {
         <div>
           <label className="text-sm">Stok</label>
           <input
-            type="number"
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
             className="w-full p-2 border rounded-xl mt-1"
             value={qty}
             onChange={(e) => setQty(e.target.value)}
@@ -53,7 +55,9 @@ export default function EditModal({ item, onClose, onSave }) {
         <div>
           <label className="text-sm">Harga (Rp)</label>
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
+            pattern="[0-9]*"
             className="w-full p-2 border rounded-xl mt-1"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
