@@ -50,7 +50,9 @@ export default function ItemForm({ onAdd }) {
       <div>
         <label className="text-sm">Stok</label>
         <input
-          type="number"
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
           className="w-full p-2 border rounded-xl mt-1"
           placeholder="Contoh: 12"
           value={qty}
@@ -63,7 +65,9 @@ export default function ItemForm({ onAdd }) {
       <div>
         <label className="text-sm">Harga (Rp)</label>
         <input
-          type="number"
+          type="text"
+          inputMode="decimal"
+          pattern="[0-9]*"
           className="w-full p-2 border rounded-xl mt-1"
           placeholder="Contoh: 5000"
           value={price}
