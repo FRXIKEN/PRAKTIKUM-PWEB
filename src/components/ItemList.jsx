@@ -1,9 +1,33 @@
 import React, { useState } from "react";
 import EditModal from "./EditModal";
+import OutModal from "./OutModal";
 
 export default function ItemList({ items, onDelete, onUpdate, onOut }) {
   const [query, setQuery] = useState("");
   const [editing, setEditing] = useState(null);
+  const [outItem, setOutItem] = useState(null);
+
+  const handleOutSubmit = ({ qty, sellPrice }) => {
+    if (!outItem) return;
+
+    // update stok
+    onUpdate({
+      ...outItem,
+      qty: outItem.qty - qty,
+    });
+
+    // simpan riwayat barang keluar
+    onOut({
+      id: Date.now(),
+      itemId: outItem.id,
+      name: outItem.name,
+      qty,
+      price: Number(outItem.price), // harga modal
+      sellPrice,
+    });
+
+    setOutItem(null);
+  };
 
   const filtered = items.filter((i) =>
     i.name.toLowerCase().includes(query.toLowerCase())
@@ -43,35 +67,7 @@ export default function ItemList({ items, onDelete, onUpdate, onOut }) {
               {/* BUTTON KELUARKAN BARANG */}
               <button
                 className="px-3 py-1 rounded-lg bg-orange-50 text-orange-600 border border-orange-200"
-                onClick={() => {
-                  const outQty = prompt("Jumlah barang keluar:");
-                  if (!outQty || isNaN(outQty) || Number(outQty) <= 0) return;
-
-                  if (Number(outQty) > item.qty) {
-                    alert("Stok tidak cukup!");
-                    return;
-                  }
-
-                  const sellPrice = prompt("Harga jual per item:");
-                  if (!sellPrice || isNaN(sellPrice) || Number(sellPrice) <= 0)
-                    return;
-
-                  // Kurangi stok
-                  onUpdate({
-                    ...item,
-                    qty: item.qty - Number(outQty),
-                  });
-
-                  // Simpan riwayat barang keluar
-                  onOut({
-                    id: Date.now(),
-                    itemId: item.id,
-                    name: item.name,
-                    qty: Number(outQty),
-                    price: Number(item.price), // harga modal
-                    sellPrice: Number(sellPrice), // harga jual
-                  });
-                }}
+                onClick={() => setOutItem(item)}
               >
                 Keluar
               </button>
@@ -93,6 +89,14 @@ export default function ItemList({ items, onDelete, onUpdate, onOut }) {
           item={editing}
           onClose={() => setEditing(null)}
           onSave={onUpdate}
+        />
+      )}
+
+      {outItem && (
+        <OutModal
+          item={outItem}
+          onClose={() => setOutItem(null)}
+          onSubmit={handleOutSubmit}
         />
       )}
     </div>
