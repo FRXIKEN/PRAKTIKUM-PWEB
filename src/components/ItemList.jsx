@@ -10,20 +10,21 @@ export default function ItemList({ items, onDelete, onUpdate, onOut }) {
   const handleOutSubmit = ({ qty, sellPrice }) => {
     if (!outItem) return;
 
-    // update stok
+    // update stok setelah barang keluar
     onUpdate({
       ...outItem,
       qty: outItem.qty - qty,
     });
 
-    // simpan riwayat barang keluar
+    // simpan riwayat barang keluar + tanggal otomatis
     onOut({
       id: Date.now(),
       itemId: outItem.id,
       name: outItem.name,
       qty,
-      price: Number(outItem.price), // harga modal
+      price: Number(outItem.price),
       sellPrice,
+      date: new Date().toLocaleDateString("id-ID"), // ⬅️ TANGGAL DITAMBAHKAN
     });
 
     setOutItem(null);
@@ -56,7 +57,6 @@ export default function ItemList({ items, onDelete, onUpdate, onOut }) {
             </div>
 
             <div className="flex gap-2">
-              {/* BUTTON EDIT */}
               <button
                 className="px-3 py-1 rounded-lg border"
                 onClick={() => setEditing(item)}
@@ -64,7 +64,6 @@ export default function ItemList({ items, onDelete, onUpdate, onOut }) {
                 Edit
               </button>
 
-              {/* BUTTON KELUARKAN BARANG */}
               <button
                 className="px-3 py-1 rounded-lg bg-orange-50 text-orange-600 border border-orange-200"
                 onClick={() => setOutItem(item)}
@@ -72,7 +71,6 @@ export default function ItemList({ items, onDelete, onUpdate, onOut }) {
                 Keluar
               </button>
 
-              {/* BUTTON HAPUS */}
               <button
                 className="px-3 py-1 rounded-lg bg-red-50 text-red-600 border border-red-200"
                 onClick={() => onDelete(item.id)}

@@ -1,6 +1,12 @@
 import React from "react";
 
-export default function Header({ totalStock, totalValue, totalOut, totalRevenue }) {
+export default function Header({
+  totalStock,
+  totalValue,
+  totalOut,
+  totalRevenue,
+  totalProfit,
+}) {
   return (
     <header className="flex items-center justify-between p-4 rounded-2xl bg-white/60 backdrop-blur shadow-md">
       <div>
@@ -13,10 +19,12 @@ export default function Header({ totalStock, totalValue, totalOut, totalRevenue 
         {/* Total Stok */}
         <div className="text-center">
           <div className="text-[17px] text-sky-500">Total Stok</div>
-          <div className="text-lg font-semibold text-sky-700">{totalStock}</div>
+          <div className="text-lg font-semibold text-sky-700">
+            {totalStock}
+          </div>
         </div>
 
-        {/* Nilai Stok */}
+        {/* Nilai Modal */}
         <div className="text-center">
           <div className="text-[17px] text-sky-500">Modal</div>
           <div className="text-lg font-semibold text-sky-700">
@@ -24,10 +32,12 @@ export default function Header({ totalStock, totalValue, totalOut, totalRevenue 
           </div>
         </div>
 
-        {/* Total Stok Keluar */}
+        {/* Stok Keluar */}
         <div className="text-center">
           <div className="text-[17px] text-sky-500">Stok Keluar</div>
-          <div className="text-lg font-semibold text-sky-700">{totalOut}</div>
+          <div className="text-lg font-semibold text-sky-700">
+            {totalOut}
+          </div>
         </div>
 
         {/* Pendapatan */}
@@ -35,6 +45,14 @@ export default function Header({ totalStock, totalValue, totalOut, totalRevenue 
           <div className="text-[17px] text-sky-500">Pendapatan</div>
           <div className="text-lg font-semibold text-sky-700">
             Rp {Number(totalRevenue).toLocaleString()}
+          </div>
+        </div>
+
+        {/* Keuntungan */}
+        <div className="text-center">
+          <div className="text-[17px] text-green-600">Keuntungan</div>
+          <div className="text-lg font-semibold text-green-700">
+            Rp {Number(totalProfit).toLocaleString()}
           </div>
         </div>
 

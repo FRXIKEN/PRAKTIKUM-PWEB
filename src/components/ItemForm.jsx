@@ -10,14 +10,16 @@ export default function ItemForm({ onAdd }) {
 
     if (!name || !qty || !price) return;
 
+    const today = new Date().toISOString().split("T")[0]; 
+    // hasil: "2025-12-11" contoh
+
     const newItem = {
-      id: Date.now(), 
+      id: Date.now(),
       name,
       qty: Number(qty),
       price: Number(price),
+      date: today, // ⬅️ tanggal ditambahkan di sini
     };
-
-    console.log("FORM ADD:", newItem); 
 
     onAdd(newItem);
 
@@ -75,6 +77,17 @@ export default function ItemForm({ onAdd }) {
           required
         />
       </div>
+
+      {/* TANGGAL otomatis (readonly) */}
+      <div>
+      <label className="text-sm">Tanggal Input</label>
+      <input
+        type="date"
+        value={new Date().toISOString().split("T")[0]}
+       className="w-full p-2 border rounded-xl mt-1 bg-gray-100"
+        />
+      </div>
+
 
       <button
         type="submit"

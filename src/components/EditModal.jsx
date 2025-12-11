@@ -5,6 +5,10 @@ export default function EditModal({ item, onClose, onSave }) {
   const [qty, setQty] = useState(item.qty);
   const [price, setPrice] = useState(item.price);
 
+  // Jika item belum punya tanggal → pakai hari ini
+  const today = new Date().toISOString().split("T")[0];
+  const [date, setDate] = useState(item.date || today);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -13,6 +17,7 @@ export default function EditModal({ item, onClose, onSave }) {
       name,
       qty: Number(qty),
       price: Number(price),
+      date, // ⬅️ tambahkan penyimpanan tanggal
     });
 
     onClose();
@@ -61,6 +66,18 @@ export default function EditModal({ item, onClose, onSave }) {
             className="w-full p-2 border rounded-xl mt-1"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* TANGGAL */}
+        <div>
+          <label className="text-sm">Tanggal</label>
+          <input
+            type="date"
+            className="w-full p-2 border rounded-xl mt-1"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
             required
           />
         </div>
