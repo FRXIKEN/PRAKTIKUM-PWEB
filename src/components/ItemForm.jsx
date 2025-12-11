@@ -18,7 +18,7 @@ export default function ItemForm({ onAdd }) {
       name,
       qty: Number(qty),
       price: Number(price),
-      date: today, // ⬅️ tanggal ditambahkan di sini
+      date: today, //tanggal ditambahkan di sini
     };
 
     onAdd(newItem);
@@ -65,7 +65,7 @@ export default function ItemForm({ onAdd }) {
 
       {/* HARGA */}
       <div>
-        <label className="text-sm">Harga (Rp)</label>
+        <label className="text-sm">Harga/pcs (Modal)</label>
         <input
           type="text"
           inputMode="decimal"

@@ -24,7 +24,7 @@ export default function ItemList({ items, onDelete, onUpdate, onOut }) {
       qty,
       price: Number(outItem.price),
       sellPrice,
-      date: new Date().toLocaleDateString("id-ID"), // ⬅️ TANGGAL DITAMBAHKAN
+      date: new Date().toLocaleDateString("id-ID"), // TANGGAL DITAMBAHKAN
     });
 
     setOutItem(null);
