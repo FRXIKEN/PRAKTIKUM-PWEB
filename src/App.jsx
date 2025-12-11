@@ -19,8 +19,18 @@ export default function App() {
 
   // simpan barang keluar
   const addOut = (data) => {
-    setOuts((prev) => [...prev, data]);
+  const newOut = {
+    id: crypto.randomUUID(),
+    name: data.name,
+    qty: data.qty,
+    price: data.price,
+    sellPrice: data.sellPrice,
+    date: new Date().toLocaleDateString("id-ID"),
   };
+
+  setOuts((prev) => [...prev, newOut]);
+};
+
 
   // hapus riwayat
   const deleteOut = (id) =>
@@ -50,7 +60,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-50 via-sky-100 to-white p-6">
-      <div className="max-w-6xl mx-auto">
+      <div className="w-full">
         <Header
           totalStock={totalStock}
           totalValue={totalValue}
@@ -59,7 +69,7 @@ export default function App() {
           totalProfit={totalProfit}
         />
 
-        <main className="mt-6 grid gap-6 md:grid-cols-3">
+        <main className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
           <section className="md:col-span-1">
             <ItemForm onAdd={addItem} />
           </section>

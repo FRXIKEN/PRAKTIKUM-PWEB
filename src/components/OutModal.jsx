@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 
 export default function OutModal({ item, onClose, onSubmit }) {
+  const today = new Date().toISOString().split("T")[0];
+
   const [qty, setQty] = useState(1);
   const [sellPrice, setSellPrice] = useState("");
+  const [date, setDate] = useState(today);
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
@@ -25,7 +28,16 @@ export default function OutModal({ item, onClose, onSubmit }) {
       return;
     }
 
-    onSubmit({ qty: qtyNum, sellPrice: sellNum });
+    if (!date) {
+      setError("Tanggal harus diisi");
+      return;
+    }
+
+    onSubmit({
+      qty: qtyNum,
+      sellPrice: sellNum,
+      date: date,
+    });
   };
 
   return (
@@ -38,6 +50,21 @@ export default function OutModal({ item, onClose, onSubmit }) {
 
         <div className="text-sm text-sky-600">
           {item.name} • Stok: {item.qty}
+        </div>
+
+        {/* TANGGAL */}
+        <div>
+          <label className="text-sm">Tanggal</label>
+          <input
+            type="date"
+            className="w-full p-2 border rounded-xl mt-1"
+            value={date}
+            onChange={(e) => {
+              setDate(e.target.value);
+              setError("");
+            }}
+            required
+          />
         </div>
 
         {/* JUMLAH KELUAR */}
@@ -65,7 +92,6 @@ export default function OutModal({ item, onClose, onSubmit }) {
             type="text"
             inputMode="decimal"
             pattern="[0-9]*"
-            min="1"
             className="w-full p-2 border rounded-xl mt-1"
             value={sellPrice}
             onChange={(e) => {

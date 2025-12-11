@@ -11,13 +11,13 @@ export default function ItemForm({ onAdd }) {
     if (!name || !qty || !price) return;
 
     const newItem = {
-      id: Date.now(), // ID unik
+      id: Date.now(), 
       name,
       qty: Number(qty),
       price: Number(price),
     };
 
-    console.log("FORM ADD:", newItem); // debug
+    console.log("FORM ADD:", newItem); 
 
     onAdd(newItem);
 

@@ -15,15 +15,13 @@ export default function OutList({ outs, onDelete }) {
           >
             <div>
               <p className="font-medium">{o.name}</p>
-              <p className="text-sm text-gray-600">
-                Qty: {o.qty}
-              </p>
-              <p className="text-sm text-gray-600">
-                Modal: Rp {o.price}
-              </p>
-              <p className="text-sm text-gray-600">
-                Harga Jual: Rp {o.sellPrice}
-              </p>
+
+              <p className="text-sm text-gray-600">Tanggal: {o.date}</p>
+
+              <p className="text-sm text-gray-600">Qty: {o.qty}</p>
+              <p className="text-sm text-gray-600">Modal: Rp {o.price}</p>
+              <p className="text-sm text-gray-600">Harga Jual: Rp {o.sellPrice}</p>
+
               <p className="text-sm font-semibold text-green-600">
                 Untung: Rp {(o.sellPrice - o.price) * o.qty}
               </p>
